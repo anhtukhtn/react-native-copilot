@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { View, Animated } from 'react-native';
+import { View, Animated, TouchableOpacity } from 'react-native';
 import styles from './style';
 
 import type { valueXY } from '../types';
@@ -74,8 +74,7 @@ class ViewMask extends Component<Props, State> {
     );
 
     return (
-      <View style={this.props.style}>
-        <Animated.View
+      <TouchableOpacity style={this.props.style} activeOpacity={1} onPress={this.props.onBgPress}>        <Animated.View
           style={[
             styles.overlayRectangle,
             {
@@ -113,7 +112,7 @@ class ViewMask extends Component<Props, State> {
             },
           ]}
         />
-      </View>
+      </TouchableOpacity>
     );
   }
 }

@@ -235,6 +235,7 @@ class CopilotModal extends Component<Props, State> {
         easing={this.props.easing}
         animationDuration={this.props.animationDuration}
         backdropColor={this.props.backdropColor}
+        onBgPress={this.handleStop}
       />
     );
   }
