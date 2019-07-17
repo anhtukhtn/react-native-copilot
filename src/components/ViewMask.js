@@ -11,25 +11,25 @@ type Props = {
   position: valueXY,
   layout: {
     width: number,
-    height: number,
+    height: number
   },
   style: object | number | Array,
   easing: func,
   animationDuration: number,
   animated: boolean,
-  backdropColor: string,
+  backdropColor: string
 };
 
 type State = {
   size: Animated.ValueXY,
   position: Animated.ValueXY,
-  canvasSize: valueXY,
+  canvasSize: valueXY
 };
 
 class ViewMask extends Component<Props, State> {
   state = {
     size: new Animated.ValueXY({ x: 0, y: 0 }),
-    position: new Animated.ValueXY({ x: 0, y: 0 }),
+    position: new Animated.ValueXY({ x: 0, y: 0 })
   };
 
   componentWillReceiveProps(nextProps) {
@@ -44,20 +44,20 @@ class ViewMask extends Component<Props, State> {
         Animated.timing(this.state.size, {
           toValue: size,
           duration: this.props.animationDuration,
-          easing: this.props.easing,
+          easing: this.props.easing
         }),
         Animated.timing(this.state.position, {
           toValue: position,
           duration: this.props.animationDuration,
-          easing: this.props.easing,
-        }),
+          easing: this.props.easing
+        })
       ]).start();
     } else {
       this.state.size.setValue(size);
       this.state.position.setValue(position);
       this.setState({ animated: this.props.animated });
     }
-  }
+  };
 
   render() {
     const { size, position } = this.state;
@@ -70,25 +70,29 @@ class ViewMask extends Component<Props, State> {
     const topOverlayBottomBoundary = Animated.add(height, Animated.multiply(-1, position.y));
     const verticalOverlayLeftBoundary = position.x;
     const verticalOverlayRightBoundary = Animated.add(
-      width, Animated.multiply(-1, rightOverlayLeft),
+      width,
+      Animated.multiply(-1, rightOverlayLeft)
     );
 
     return (
-      <TouchableOpacity style={this.props.style} activeOpacity={1} onPress={this.props.onBgPress}>        <Animated.View
+      <TouchableOpacity style={this.props.style} activeOpacity={1} onPress={this.props.onBgPress}>
+        <Animated.View
           style={[
             styles.overlayRectangle,
             {
               right: leftOverlayRight,
-              backgroundColor: this.props.backdropColor,
-            }]}
+              backgroundColor: this.props.backdropColor
+            }
+          ]}
         />
         <Animated.View
           style={[
             styles.overlayRectangle,
             {
               left: rightOverlayLeft,
-              backgroundColor: this.props.backdropColor,
-            }]}
+              backgroundColor: this.props.backdropColor
+            }
+          ]}
         />
         <Animated.View
           style={[
@@ -97,8 +101,8 @@ class ViewMask extends Component<Props, State> {
               top: bottomOverlayTopBoundary,
               left: verticalOverlayLeftBoundary,
               right: verticalOverlayRightBoundary,
-              backgroundColor: this.props.backdropColor,
-            },
+              backgroundColor: this.props.backdropColor
+            }
           ]}
         />
         <Animated.View
@@ -108,14 +112,13 @@ class ViewMask extends Component<Props, State> {
               bottom: topOverlayBottomBoundary,
               left: verticalOverlayLeftBoundary,
               right: verticalOverlayRightBoundary,
-              backgroundColor: this.props.backdropColor,
-            },
+              backgroundColor: this.props.backdropColor
+            }
           ]}
         />
       </TouchableOpacity>
     );
   }
 }
-
 
 export default ViewMask;
